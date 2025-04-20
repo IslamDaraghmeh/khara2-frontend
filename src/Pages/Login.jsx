@@ -50,13 +50,10 @@ function Login({ }) {
             console.log('helll');
             let validateForm = validation();
             if (validateForm.error) {
-                console.log("Validation error:", validateForm.error.details);
-                setErrorList(validateForm.error.details);
+                 setErrorList(validateForm.error.details);
             } else {
-                console.log("Validation successful");
-                let { data } = await axios.post('https://suarez83.com/api/v1/auth/signin', user);
-                console.log('data token', data);
-                handleLoginSuccess(data.token)
+                 let { data } = await axios.post('https://suarez83.com/api/v1/auth/signin', user);
+                 handleLoginSuccess(data.token)
                 setData(data);
                 if (data.message === 'sucsses') {
                     let token = data.token;
@@ -64,14 +61,13 @@ function Login({ }) {
                         goTodashboard();
                     } else {
                         localStorage.setItem('token', token);
-                        console.log(localStorage.getItem('token'));
-                        if (localStorage.getItem('cartData') != null) {
+                         if (localStorage.getItem('cartData') != null) {
                             const cartData = JSON.parse(localStorage.getItem('cartData'));
                             const cart = { cartData };
-                            console.log('cartDarta', cartData);
-
+                            
+                            
                             const x = await axios.patch('https://suarez83.com/api/v1/cart/addCart', cart, {
-                                headers: { token: `rand__${token}` }
+                                headers: { token: `${token}` }
                             });
                             console.log('x', x)
                         }
